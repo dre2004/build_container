@@ -1,11 +1,24 @@
 FROM python:3.10-slim-bullseye
-
 ARG RUNNER_VERSION="2.303.0"
+ARG APP_ENV
+
+ENV APP_ENV=${APP_ENV} \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    POETRY_VERSION=1.4.1
 
 # Install base dependencies
 RUN set -xe && \
     apt-get update && apt-get install git unzip wget curl jq build-essential \
     libssl-dev libffi-dev --no-install-recommends -y
+
+# Install Poetry
+RUN set -xe && \
+    pip install "poetry==$POETRY_VERSION"
 
 
 # Install Github Runner dependencies
