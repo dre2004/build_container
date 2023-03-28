@@ -13,6 +13,7 @@ RUN set -xe && \
     mkdir /actions-runner && cd actions-runner && \
     curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
     tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
+    rm actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
     pwd && ls -lah && \
     /actions-runner/bin/installdependencies.sh
 
@@ -28,14 +29,16 @@ RUN set -xe && \
     wget https://releases.hashicorp.com/terraform/1.3.2/terraform_1.3.2_linux_amd64.zip && \
     unzip terraform_1.3.2_linux_amd64.zip && \
     chmod +x terraform && \
-    mv terraform /usr/bin/
+    mv terraform /usr/bin/ && \
+    rm terraform_1.3.2_linux_amd64.zip
 
 # Install AWS CLI
 RUN set -xe && \
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
     chmod +x ./aws/install && \
-    ./aws/install
+    ./aws/install && \
+    rm awscliv2.zip
 
 # Clean up
 RUN set -xe && \
