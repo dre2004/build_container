@@ -14,7 +14,7 @@ ENV APP_ENV=${APP_ENV} \
 # Install base dependencies
 RUN set -xe && \
     apt-get update && apt-get install git unzip wget curl jq build-essential \
-    libssl-dev libffi-dev --no-install-recommends -y
+    libssl-dev libffi-dev ssh --no-install-recommends -y
 
 # Install Poetry
 RUN set -xe && \
