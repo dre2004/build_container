@@ -30,6 +30,13 @@ RUN set -xe && \
     chmod +x terraform && \
     mv terraform /usr/bin/
 
+# Install AWS CLI
+RUN set -xe && \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    chmod +x ./aws/install && \
+    ./aws/install
+
 # Clean up
 RUN set -xe && \
     rm -rf /build && \
