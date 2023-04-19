@@ -54,8 +54,9 @@ RUN set -xe && \
     rm awscliv2.zip
 
 # Github Key fix
-RUN set -xe &&
-    ssh-keygen -R github.com
+RUN set -xe && \
+    ssh-keygen -R github.com && \
+    curl -L https://api.github.com/meta | jq -r '.ssh_keys | .[]' | sed -e 's/^/github.com /' >> ~/.ssh/known_hosts
 
 # Clean up
 RUN set -xe && \
