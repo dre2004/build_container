@@ -19,3 +19,4 @@ trap 'cleanup; exit 143' TERM
 
 ./run.sh & wait $!
 
+
