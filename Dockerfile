@@ -53,6 +53,10 @@ RUN set -xe && \
     ./aws/install && \
     rm awscliv2.zip
 
+# Github Key fix
+RUN set -xe &&
+    ssh-keygen -R github.com
+
 # Clean up
 RUN set -xe && \
     rm -rf /build && \
