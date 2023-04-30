@@ -1,4 +1,4 @@
-FROM ubuntu:22.10
+FROM ubuntu:20.04
 ARG RUNNER_VERSION="2.303.0"
 ARG APP_ENV
 
@@ -9,7 +9,8 @@ ENV APP_ENV=${APP_ENV} \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_VERSION=1.4.1
+    POETRY_VERSION=1.4.1 \
+    DEBIAN_FRONTEND=noninteractive
 
 # Install base dependencies
 RUN set -xe && \
