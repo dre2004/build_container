@@ -66,9 +66,11 @@ WORKDIR /
 RUN set -xe && \
     npx cdktf-cli@0.15.5 --version
 
+USER root
 COPY start.sh start.sh
 RUN chmod +x start.sh
 
+USER github 
 ENTRYPOINT ["./start.sh"]
 
 
