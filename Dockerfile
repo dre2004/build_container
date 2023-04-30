@@ -24,7 +24,7 @@ RUN set -xe && \
 
 # Install Github Runner dependencies
 RUN set -xe && \
-    mkdir /actions-runner && cd actions-runner && \
+    mkdir /opt/hostedtoolcache && mkdir /actions-runner && cd actions-runner && \
     curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
     tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
     rm actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
