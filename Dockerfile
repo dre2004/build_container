@@ -14,7 +14,8 @@ ENV APP_ENV=${APP_ENV} \
 # Install base dependencies
 RUN set -xe && \
     apt-get update && apt-get install git unzip wget curl jq build-essential ca-certificates python3.10 python3-pip \
-    libssl-dev libffi-dev ssh --no-install-recommends -y
+    libssl-dev libffi-dev ssh --no-install-recommends -y && \
+    useradd -m github
 
 # Install Poetry
 RUN set -xe && \
@@ -61,13 +62,13 @@ RUN set -xe && \
     rm -rf /build && \
     apt-get clean autoclean && apt-get autoremove -y && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/ && \
-    chown -R docker /actions-runner
+    chown -R github /actions-runner
     
 
 WORKDIR /
 COPY start.sh start.sh
 RUN chmod +x start.sh
-USER docker
+USER github 
 
 ENTRYPOINT ["./start.sh"]
 
