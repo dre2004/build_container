@@ -58,7 +58,7 @@ RUN set -xe && \
     rm -rf /build && \
     apt-get clean autoclean && apt-get autoremove -y && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/ && \
-    chown -R github /actions-runner
+    chown -R github /actions-runner /opt/hostedtoolcache
 
 # Install CDKTF
 USER github 
