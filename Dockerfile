@@ -60,11 +60,14 @@ RUN set -xe && \
 RUN set -xe && \
     rm -rf /build && \
     apt-get clean autoclean && apt-get autoremove -y && \
-    rm -rf /var/lib/{apt,dpkg,cache,log}/
+    rm -rf /var/lib/{apt,dpkg,cache,log}/ && \
+    chown -R docker /actions-runner
+    
 
 WORKDIR /
 COPY start.sh start.sh
 RUN chmod +x start.sh
+USER docker
 
 ENTRYPOINT ["./start.sh"]
 
