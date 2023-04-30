@@ -53,22 +53,21 @@ RUN set -xe && \
     ./aws/install && \
     rm awscliv2.zip
 
-# Install CDKTF
-RUN set -xe && \
-    npx cdktf-cli@0.15.5 --version
-
 # Clean up
 RUN set -xe && \
     rm -rf /build && \
     apt-get clean autoclean && apt-get autoremove -y && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/ && \
     chown -R github /actions-runner
-    
 
+# Install CDKTF
+USER github 
 WORKDIR /
+RUN set -xe && \
+    npx cdktf-cli@0.15.5 --version
+
 COPY start.sh start.sh
 RUN chmod +x start.sh
-USER github 
 
 ENTRYPOINT ["./start.sh"]
 
