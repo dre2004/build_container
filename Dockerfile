@@ -1,4 +1,4 @@
-FROM python:3.10-slim-bullseye
+FROM ubuntu:22.10
 ARG RUNNER_VERSION="2.303.0"
 ARG APP_ENV
 
@@ -17,8 +17,8 @@ RUN set -xe && \
     libssl-dev libffi-dev ssh --no-install-recommends -y
 
 # Install Poetry
-RUN set -xe && \
-    pip install "poetry==$POETRY_VERSION"
+#RUN set -xe && \
+#    pip3 install "poetry==$POETRY_VERSION"
 
 
 # Install Github Runner dependencies
