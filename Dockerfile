@@ -13,12 +13,12 @@ ENV APP_ENV=${APP_ENV} \
 
 # Install base dependencies
 RUN set -xe && \
-    apt-get update && apt-get install git unzip wget curl jq build-essential \
+    apt-get update && apt-get install git unzip wget curl jq build-essential ca-certificates python3.10 python3-pip \
     libssl-dev libffi-dev ssh --no-install-recommends -y
 
 # Install Poetry
-#RUN set -xe && \
-#    pip3 install "poetry==$POETRY_VERSION"
+RUN set -xe && \
+    pip install "poetry==$POETRY_VERSION"
 
 
 # Install Github Runner dependencies
@@ -27,7 +27,6 @@ RUN set -xe && \
     curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
     tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
     rm actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
-    pwd && ls -lah && \
     /actions-runner/bin/installdependencies.sh
 
 
@@ -52,6 +51,10 @@ RUN set -xe && \
     chmod +x ./aws/install && \
     ./aws/install && \
     rm awscliv2.zip
+
+# Install CDKTF
+RUN set -xe && \
+    npx cdktf-cli@0.15.5 --version
 
 # Clean up
 RUN set -xe && \
