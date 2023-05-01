@@ -61,16 +61,16 @@ RUN set -xe && \
     chown -R github /actions-runner /opt/hostedtoolcache
 
 # Install CDKTF
-USER github 
+#USER github 
 WORKDIR /
 RUN set -xe && \
     npx cdktf-cli@0.15.5 --version
 
-USER root
+#USER root
 COPY start.sh start.sh
 RUN chmod +x start.sh
 
-USER github 
+#USER github 
 ENTRYPOINT ["./start.sh"]
 
 
