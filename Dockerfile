@@ -25,14 +25,14 @@ RUN set -xe \
     && apt-get install git unzip lsb-release wget curl jq build-essential ca-certificates python3.10 python3-pip dumb-init \
     libssl-dev libffi-dev openssh-client tar apt-transport-https sudo gpg-agent software-properties-common zstd gettext libcurl4-openssl-dev jq \
     gnupg zip locales --no-install-recommends -y \
-    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
-    && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" \
-    && apt-cache policy docker-ce \
-    && apt-get install -y docker-ce docker-ce-cli docker-buildx-plugin containerd.io docker-compose-plugin --no-install-recommends --allow-unauthenticated \
+    #&& curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
+    #&& sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" \
+    #&& apt-cache policy docker-ce \
+    #&& apt-get install -y docker-ce docker-ce-cli docker-buildx-plugin containerd.io docker-compose-plugin --no-install-recommends --allow-unauthenticated \
     && groupadd -g 121 runner \
     && useradd -mr -d /home/runner -u 1001 -g 121 runner \
     && usermod -aG sudo runner \
-    && usermod -aG docker runner \
+    #&& usermod -aG docker runner \
     && echo '%sudo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Install Poetry
