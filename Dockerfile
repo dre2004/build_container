@@ -84,11 +84,6 @@ RUN set -xe \
 
 
 USER runner
-
-# Install CDKTF
-RUN set -xe \
-    && npx cdktf-cli@0.15.5 --version
-
 ENTRYPOINT ["./start.sh"]
 
 
