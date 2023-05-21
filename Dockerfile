@@ -49,7 +49,8 @@ RUN set -xe \
     && wget https://releases.hashicorp.com/terraform/1.3.2/terraform_1.3.2_linux_amd64.zip \
     && unzip terraform_1.3.2_linux_amd64.zip \
     && chmod +x terraform \
-    && mv terraform /usr/bin/ 
+    && mv terraform /usr/bin/ \
+    && npx cdktf-cli@0.15.2 --version
 
 # Install AWS CLI
 RUN set -xe \
@@ -68,7 +69,7 @@ WORKDIR /home/runner
 RUN set -xe \ 
     && apt-get clean autoclean \
     && apt-get autoremove -y \
-    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /build 
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /build  \
     && chown -R runner:runner /home/runner/ /opt/hostedtoolcache
 
 
