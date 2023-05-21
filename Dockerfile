@@ -1,5 +1,4 @@
 FROM ubuntu:20.04
-ARG RUNNER_VERSION="2.303.0"
 ARG APP_ENV
 
 ENV APP_ENV=${APP_ENV} \
@@ -25,14 +24,14 @@ RUN set -xe \
     && apt-get install git unzip lsb-release wget curl jq build-essential ca-certificates python3.10 python3-pip dumb-init \
     libssl-dev libffi-dev openssh-client tar apt-transport-https sudo gpg-agent software-properties-common zstd gettext libcurl4-openssl-dev jq \
     gnupg zip locales --no-install-recommends -y \
-    #&& curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
-    #&& sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" \
-    #&& apt-cache policy docker-ce \
-    #&& apt-get install -y docker-ce docker-ce-cli docker-buildx-plugin containerd.io docker-compose-plugin --no-install-recommends --allow-unauthenticated \
+    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
+    && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" \
+    && apt-cache policy docker-ce \
+    && apt-get install -y docker-ce docker-ce-cli docker-buildx-plugin containerd.io docker-compose-plugin --no-install-recommends --allow-unauthenticated \
     && groupadd -g 121 runner \
     && useradd -mr -d /home/runner -u 1001 -g 121 runner \
     && usermod -aG sudo runner \
-    #&& usermod -aG docker runner \
+    && usermod -aG docker runner \
     && echo '%sudo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Install Poetry
@@ -65,29 +64,14 @@ RUN chmod +x /start.sh
 
 WORKDIR /home/runner
 
-# Install Github Runner dependencies
-RUN set -xe \
-    && mkdir actions-runner \
-    && cd actions-runner \
-    && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
-    && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
-    && rm actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
-    && /home/runner/actions-runner/bin/installdependencies.sh \
-    && chown -R runner:runner /home/runner
-
 # Clean up
 RUN set -xe \ 
     && apt-get clean autoclean \
     && apt-get autoremove -y \
-    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /build \
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /build 
     && chown -R runner:runner /home/runner/ /opt/hostedtoolcache
 
 
 USER runner
-ENTRYPOINT ["./start.sh"]
 
-
-
-
-    
 
