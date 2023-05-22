@@ -73,6 +73,4 @@ RUN set -xe \
     && chown -R runner:runner /home/runner/ /opt/hostedtoolcache
 
 
-USER runner
-
 
