@@ -21,7 +21,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Install base dependencies
 RUN set -xe \
     && apt-get update \
-    && apt-get install git unzip lsb-release wget curl jq build-essential ca-certificates python3.10 python3-pip dumb-init \
+    && apt-get install git unzip lsb-release wget curl jq build-essential ca-certificates python3.9 python3-pip dumb-init \
     libssl-dev libffi-dev openssh-client tar apt-transport-https sudo gpg-agent software-properties-common zstd gettext libcurl4-openssl-dev jq \
     gnupg zip locales --no-install-recommends -y \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
