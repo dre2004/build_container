@@ -50,7 +50,7 @@ RUN set -xe \
     && unzip terraform_1.3.2_linux_amd64.zip \
     && chmod +x terraform \
     && mv terraform /usr/bin/ \
-    && npx cdktf-cli@0.15.2 --version
+    && npm i -g cdktf-cli@0.15.2
 
 # Install AWS CLI
 RUN set -xe \
