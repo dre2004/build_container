@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM arm64v8/ubuntu:20.04
 ARG APP_ENV
 
 ENV APP_ENV=${APP_ENV} \
@@ -26,7 +26,7 @@ RUN set -xe \
     libssl-dev libffi-dev openssh-client tar apt-transport-https sudo gpg-agent software-properties-common zstd gettext libcurl4-openssl-dev jq \
     gnupg zip locales --no-install-recommends -y \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
-    && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" \
+    && sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu focal stable" \
     && apt-cache policy docker-ce \
     && apt-get install -y docker-ce docker-ce-cli docker-buildx-plugin containerd.io docker-compose-plugin --no-install-recommends --allow-unauthenticated \
     && groupadd -g 121 runner \
@@ -47,7 +47,7 @@ RUN set -xe \
 
 # Install Terraform 
 RUN set -xe \
-    && wget https://releases.hashicorp.com/terraform/1.3.2/terraform_1.3.2_linux_amd64.zip \
+    && wget https://releases.hashicorp.com/terraform/1.3.2/terraform_1.3.2_linux_arm.zip \
     && unzip terraform_1.3.2_linux_amd64.zip \
     && chmod +x terraform \
     && mv terraform /usr/bin/ \
@@ -55,7 +55,7 @@ RUN set -xe \
 
 # Install AWS CLI
 RUN set -xe \
-    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip" \
     && unzip awscliv2.zip \
     && chmod +x ./aws/install \
     && ./aws/install 
