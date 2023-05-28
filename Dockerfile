@@ -48,7 +48,7 @@ RUN set -xe \
 # Install Terraform 
 RUN set -xe \
     && wget https://releases.hashicorp.com/terraform/1.3.2/terraform_1.3.2_linux_arm.zip \
-    && unzip terraform_1.3.2_linux_amd64.zip \
+    && unzip terraform_1.3.2_linux_arm.zip \
     && chmod +x terraform \
     && mv terraform /usr/bin/ \
     && npm i -g cdktf-cli@0.15.2
