@@ -22,9 +22,12 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN set -xe \
     && apt-get update \
     && apt-get upgrade -y \
+    && apt-get install software-properties-common -y \
+    && add-apt-repository ppa:deadsnakes/ppa \
     && apt-get install git unzip lsb-release wget curl jq build-essential ca-certificates python3.9 python3-pip dumb-init \
     libssl-dev libffi-dev openssh-client tar apt-transport-https sudo gpg-agent software-properties-common zstd gettext libcurl4-openssl-dev jq \
     gnupg zip locales --no-install-recommends -y \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.9 0 \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
     && sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu focal stable" \
     && apt-cache policy docker-ce \
@@ -70,7 +73,8 @@ WORKDIR /home/runner
 RUN set -xe \ 
     && apt-get clean autoclean \
     && apt-get autoremove -y \
-    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /build  \
+    #&& rm -rf /var/lib/{apt,dpkg,cache,log}/ /build  \
+    && rm -rf /build  \
     && chown -R runner:runner /home/runner/ /opt/hostedtoolcache
 
 
