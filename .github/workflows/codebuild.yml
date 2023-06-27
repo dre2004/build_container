@@ -2,7 +2,7 @@ name: Codebuild Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 
-permmissions:
+permissions:
   id-token: write
   contents: read
 
