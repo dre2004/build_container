@@ -21,4 +21,6 @@ jobs:
 
       - name: AWS CodePipeline Trigger
         uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
-        pipeline-name: BuildContainerPipeline
+        with:
+          aws-region: ap-southeast-2
+          pipeline-name: BuildContainerPipeline
