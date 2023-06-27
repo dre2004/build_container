@@ -1,9 +1,6 @@
-name: Codebuild Demo
+name: Code Pipeline Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 permissions:
   id-token: write
@@ -21,8 +18,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::574736080095:role/GithubActions-CodeBuildRole
           aws-region: ap-southeast-2
-      - name: Run CodeBuild
-        uses: aws-actions/aws-codebuild-run-build@v1
-        with:
-          project-name: BuildContainerTest
-          disable-source-override: true
+
+      - name: AWS CodePipeline Trigger
+        uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
+        pipeline-name: BuildContainerPipeline
