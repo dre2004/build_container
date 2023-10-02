@@ -30,7 +30,7 @@ RUN set -xe \
     && apt-cache policy docker-ce \
     && apt-get install -y docker-ce docker-ce-cli docker-buildx-plugin containerd.io docker-compose-plugin --no-install-recommends --allow-unauthenticated \
     && groupadd -g 121 runner \
-    && useradd -mr -d /home/runner -u 1001 -g 121 runner \
+    && useradd -mr -d /github/uome -u 1001 -g 121 runner \
     && usermod -aG sudo runner \
     && usermod -aG docker runner \
     && echo '%sudo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
@@ -64,14 +64,14 @@ RUN set -xe \
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-WORKDIR /home/runner
+WORKDIR /github/home
 
 # Clean up
 RUN set -xe \ 
     && apt-get clean autoclean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /build  \
-    && chown -R runner:runner /home/runner/ /opt/hostedtoolcache
+    && chown -R runner:runner /github/home/ /opt/hostedtoolcache
 
-
+USER runner
 
