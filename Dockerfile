@@ -85,7 +85,16 @@ RUN set -xe \
     && apt-get autoremove -y \
     && rm -rf /build 
 
+RUN set -xe \
+    && groupadd -g 121 runner \
+    && useradd -mr -d /github/home -u 1001 -g 121 runner \
+    && usermod -aG sudo runner \
+    && usermod -aG docker runner 
+
+USER runner
 WORKDIR /github/home
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
+
+ENTRYPOINT [ "/bin/bash", "/start.sh" ]
