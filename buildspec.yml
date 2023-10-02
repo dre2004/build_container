@@ -1,0 +1,44 @@
+version: 0.2
+
+phases:
+  #install:
+    #If you use the Ubuntu standard image 2.0 or later, you must specify runtime-versions.
+    #If you specify runtime-versions and use an image other than Ubuntu standard image 2.0, the build fails.
+    #runtime-versions:
+      # name: version
+      # name: version
+    #commands:
+      # - command
+      # - command
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 574736080095.dkr.ecr.ap-southeast-2.amazonaws.com
+  build:
+    commands:
+      - echo "Build started on `date`"
+      - docker build -t build_container .
+      - docker tag build_container:latest 574736080095.dkr.ecr.ap-southeast-2.amazonaws.com/build_container:latest
+  post_build:
+    commands:
+      - echo "Build completed on `date`"
+      - echo "Pushing container"
+      - docker push 574736080095.dkr.ecr.ap-southeast-2.amazonaws.com/build_container:latest
+#reports:
+  #report-name-or-arn:
+    #files:
+      # - location
+      # - location
+    #base-directory: location
+    #discard-paths: yes
+    #file-format: JunitXml | CucumberJson
+#artifacts:
+  #files:
+    # - location
+    # - location
+  #name: $(date +%Y-%m-%d)
+  #discard-paths: yes
+  #base-directory: location
+#cache:
+  #paths:
+    # - paths
+
