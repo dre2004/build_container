@@ -73,5 +73,4 @@ RUN set -xe \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /build  \
     && chown -R runner:runner /github/home/ /opt/hostedtoolcache
 
-USER runner
 
